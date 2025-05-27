@@ -24,4 +24,8 @@ public class DeleteDepartmentsController {
         deptService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    // TODO Delete multiple
+    // TODO Delete all
 }
