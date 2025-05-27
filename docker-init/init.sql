@@ -14,11 +14,11 @@ CREATE TABLE IF NOT EXISTS employee (
   department_id INTEGER NOT NULL,
   CONSTRAINT fk_employee_department
     FOREIGN KEY (department_id)
-      REFERENCES departments(id)
+      REFERENCES department(id)
       ON DELETE CASCADE
 );
 
-INSERT INTO departments (name, creation_date) VALUES
+INSERT INTO department (name, creation_date) VALUES
     ('IT', '2024-10-27 10:00:00+02'),
 	('Marketing', '2023-09-16 19:30:00+02'),
 	('Management', '2020-01-27 15:46:21+02'),
@@ -26,39 +26,39 @@ INSERT INTO departments (name, creation_date) VALUES
 	('Sales', '1995-10-27 00:01:16+02');
 
 
-INSERT INTO employees (full_name, address, phone_number, email, department_id) VALUES
+INSERT INTO employee (full_name, address, phone_number, email, department_id) VALUES
      (
         'Alice Smith',
         '123 Main St, Vienna, Austria',
         '+43 1 2345678',
         'alice.smith@example.com',
-        (SELECT id FROM departments WHERE name = 'IT')
+        (SELECT id FROM department WHERE name = 'IT')
       ),
       (
         'Bob Johnson',
         '456 Second Ave, Salzburg, Austria',
         '+43 662 987654',
         'bob.johnson@example.com',
-        (SELECT id FROM departments WHERE name = 'Marketing')
+        (SELECT id FROM department WHERE name = 'Marketing')
       ),
       (
         'Catherine Lee',
         '789 Third Blvd, Graz, Austria',
         '+43 316 555444',
         'catherine.lee@example.com',
-        (SELECT id FROM departments WHERE name = 'Sales')
+        (SELECT id FROM department WHERE name = 'Sales')
       ),
       (
         'David Müller',
         '10 Fourth Rd, Innsbruck, Austria',
         '+43 512 123789',
         'david.mueller@example.com',
-        (SELECT id FROM departments WHERE name = 'IT')
+        (SELECT id FROM department WHERE name = 'IT')
       ),
       (
         'Eva Novak',
         '22 Fifth St, Linz, Austria',
         '+43 732 998877',
         'eva.novak@example.com',
-        (SELECT id FROM departments WHERE name = 'HR')
+        (SELECT id FROM department WHERE name = 'HR')
       );
