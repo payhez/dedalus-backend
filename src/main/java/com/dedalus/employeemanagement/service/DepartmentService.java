@@ -1,6 +1,6 @@
 package com.dedalus.employeemanagement.service;
 
-import com.dedalus.employeemanagement.model.Department;
+import com.dedalus.employeemanagement.entity.Department;
 import com.dedalus.employeemanagement.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,11 @@ public class DepartmentService {
         this.deptRepo = deptRepo;
     }
 
-    public Department create(Department department) {
-        // Check uniqueness
+    public void create(Department department) {
         if (deptRepo.existsByName(department.getName())) {
-            throw new IllegalArgumentException("Department with name '"
-                    + department.getName()
-                    + "' already exists.");
+            throw new IllegalArgumentException("Department with name '" + department.getName() + "' already exists.");
         }
-        return deptRepo.save(department);
+        deptRepo.save(department);
     }
 
     public Department update(Long id, Department updated) {

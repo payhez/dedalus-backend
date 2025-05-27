@@ -1,6 +1,6 @@
 package com.dedalus.employeemanagement.repository;
 
-import com.dedalus.employeemanagement.model.Employee;
+import com.dedalus.employeemanagement.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

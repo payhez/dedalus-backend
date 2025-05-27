@@ -1,7 +1,7 @@
 package com.dedalus.employeemanagement.service;
 
-import com.dedalus.employeemanagement.model.Department;
-import com.dedalus.employeemanagement.model.Employee;
+import com.dedalus.employeemanagement.entity.Department;
+import com.dedalus.employeemanagement.entity.Employee;
 import com.dedalus.employeemanagement.repository.DepartmentRepository;
 import com.dedalus.employeemanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
