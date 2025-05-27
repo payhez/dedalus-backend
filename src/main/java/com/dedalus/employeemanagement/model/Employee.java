@@ -2,7 +2,6 @@ package com.dedalus.employeemanagement.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import org.springframework.data.annotation.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -28,9 +27,11 @@ public class Employee {
     private String address;
 
     @Pattern(regexp = "^\\+?[0-9\\s-]+$", message = "Invalid phone number format")
+    @Column(unique = true)
     private String phoneNumber;
 
     @Email(message = "Invalid email format")
+    @Column(unique = true)
     private String email;
 
     @ManyToOne
