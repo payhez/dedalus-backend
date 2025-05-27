@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: postgres-db
+    image: postgres
+    environment:
+      POSTGRES_DB: employeemanagementdb
+      POSTGRES_USER: dedalusAdmin
+      POSTGRES_PASSWORD: adminPass
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+      - ./docker-init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - dedalus
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dedalusAdmin -d employeemanagementdb"]
+      interval: 10s
+      retries: 5
+
+  pgadmin:
+    container_name: pgadmin-dedalus
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@dedalus.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - dedalus
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  #app:
+  #  image: openjdk:17-jdk
+  #  container_name: employee_management_backend
+  #  depends_on:
+  #    postgres-db:
+  #      condition: service_healthy
+  #  volumes:
+  #    - ./target/employee_management_backend.jar:/app/employee_management_backend.jar
+  #  command: ["java", "-jar", "/app/employee_management_backend.jar"]
+  #  ports:
+  #    - "8080:8080"
+  #  environment:
+  #    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/employeemanagementdb
+  #    SPRING_DATASOURCE_USERNAME: dedalusAdmin
+  #    SPRING_DATASOURCE_PASSWORD: adminPass
+  #    SPRING_JPA_HIBERNATE_DDL-AUTO: update
+  #  networks:
+  #    - dedalus
+
+networks:
+  dedalus:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
